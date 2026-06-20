@@ -967,7 +967,6 @@ Built for Digital Heroes: https://digitalheroesco.com`;
                 const intDiff = Math.abs(intA - intB);
 
                 const betterPlan = intA < intB ? 'Loan Plan A' : 'Loan Plan B';
-                const colorClass = intA < intB ? 'text-accent' : 'text-green';
 
                 return (
                   <div>

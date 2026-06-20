@@ -69,16 +69,11 @@ Since this is a client-side static web application, it can be deployed directly 
 
 ---
 
-## Future Enhancements & Advanced Real-World Features
+## Advanced Features Implemented
 
-To scale this from a standard calculator into an enterprise-grade financial planner, the following advanced features are planned:
-
-*   **Prepayment & Part-Payment Modeling**: Simulate how extra recurring or lump-sum payments affect total interest and accelerate loan payoff.
-    *   *Real-Life Example*: A homeowner receives an annual bonus of ₹2,00,000 in Year 2 and wants to compare reducing their tenure by 14 months vs. lowering their monthly EMI by ₹1,800.
-*   **Side-by-Side Loan Comparison**: Allow comparing multiple loan offers with different rates, tenures, and processing fees to see the net savings.
-    *   *Real-Life Example*: A buyer evaluates a 30-year home loan at 8.5% with a ₹5,000 processing fee against a 25-year home loan at 8.7% with zero processing fee.
-*   **Reverse Loan Eligibility Calculator**: Calculate maximum affordable loan principal based on a targeted monthly EMI budget.
-    *   *Real-Life Example*: A salaried professional knows they can afford an EMI of exactly ₹35,000/month. The calculator determines the maximum home loan amount they can secure.
+*   **Prepayment & Part-Payment Modeling**: Add extra recurring or lump-sum payments at specific milestones and forecast months saved or EMI reductions.
+*   **Side-by-Side Loan Comparison**: Compare two loan offers with varying interest rates, principals, and tenures side-by-side to review absolute savings.
+*   **Reverse Loan Eligibility Calculator**: Estimate maximum loan principal allowed based on monthly income, existing obligations, and target FOIR bank guidelines.
 
 ## Submission Details
 *   **Developer**: Phulkeshwar Mahto
