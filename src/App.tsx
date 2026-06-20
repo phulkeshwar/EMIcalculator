@@ -376,7 +376,7 @@ Monthly EMI: ${formatCurrency(monthlyEmi)}
 Total Interest Payable: ${formatCurrency(totalInterest)}
 Total Amount Payable: ${formatCurrency(totalPayable)}
 -----------------------------
-Phulkeshwar Mahto | phulkeshwarmahto@gmail.com
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
 Built for Digital Heroes: https://digitalheroesco.com`;
     } else if (activeTab === 'prepayments') {
       summary = `EMI Prepayment Savings Summary:
@@ -388,7 +388,7 @@ Revised Total Payable: ${formatCurrency(prepTotalPayable)}
 Interest Saved: ${formatCurrency(prepSavingsInterest)}
 Months Saved: ${prepSavingsTenure} months
 -----------------------------
-Phulkeshwar Mahto | phulkeshwarmahto@gmail.com
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
 Built for Digital Heroes: https://digitalheroesco.com`;
     } else if (activeTab === 'compare') {
       const emiA = calculateEmiValue(compAmountA, compRateA, compTenureA);
@@ -410,7 +410,7 @@ Net Difference:
 - EMI: ${formatCurrency(Math.abs(emiA - emiB))}
 - Interest: ${formatCurrency(Math.abs(intA - intB))}
 -----------------------------
-Phulkeshwar Mahto | phulkeshwarmahto@gmail.com
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
 Built for Digital Heroes: https://digitalheroesco.com`;
     } else if (activeTab === 'eligibility') {
       const { maxEmi, eligibleLoan } = calculateEligibility();
@@ -423,7 +423,7 @@ Max Affordable EMI: ${formatCurrency(maxEmi)}
 Assumed Interest: ${eligibilityRate}% p.a.
 Assumed Tenure: ${eligibilityTenure} years
 -----------------------------
-Phulkeshwar Mahto | phulkeshwarmahto@gmail.com
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
 Built for Digital Heroes: https://digitalheroesco.com`;
     }
 
@@ -478,7 +478,7 @@ Built for Digital Heroes: https://digitalheroesco.com`;
         </div>
         <div className="author-chip">
           By <strong>Phulkeshwar Mahto</strong> &nbsp;·&nbsp; 
-          <a href="mailto:phulkeshwarmahto@gmail.com">phulkeshwarmahto@gmail.com</a>
+          <a href="mailto:phulkeshwar.e@gmail.com">phulkeshwar.e@gmail.com</a>
         </div>
       </header>
 
@@ -1317,7 +1317,7 @@ Built for Digital Heroes: https://digitalheroesco.com`;
       <footer>
         <p className="footer-author">
           Built by <strong>Phulkeshwar Mahto</strong> &nbsp;·&nbsp;
-          <a href="mailto:phulkeshwarmahto@gmail.com">phulkeshwarmahto@gmail.com</a>
+          <a href="mailto:phulkeshwar.e@gmail.com">phulkeshwar.e@gmail.com</a>
           &nbsp;·&nbsp; B.Tech CSE · NIAMT Ranchi
         </p>
         <a 
