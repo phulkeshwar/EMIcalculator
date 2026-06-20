@@ -29,6 +29,67 @@ export default function App() {
   const [animate, setAnimate] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // FAQ Active Accordion
+  const [faqActive, setFaqActive] = useState<number | null>(null);
+  const toggleFaq = (index: number) => {
+    setFaqActive(faqActive === index ? null : index);
+  };
+
+  // Dynamic FAQ JSON-LD Injection for deep SEO
+  useEffect(() => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is loan EMI calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Loan EMI is calculated using the formula: [P x R x (1+R)^N]/[(1+R)^N - 1], where P is the Principal loan amount, R is the monthly interest rate (annual rate divided by 12 * 100), and N is the loan tenure in months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I choose to reduce EMI or reduce tenure during prepayment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reducing loan tenure typically saves more money on interest over the long run compared to reducing the monthly EMI. Reducing EMI is better if you are facing cash flow constraints and want to lower your monthly obligation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the FOIR ratio and how does it affect eligibility?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FOIR (Fixed Obligation to Income Ratio) is a metric banks use to gauge your loan eligibility. It measures how much of your monthly net income goes toward paying existing debts. Typically, banks prefer a FOIR under 50%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does prepayment attract additional penalties?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under RBI guidelines, floating rate home loans, car loans, and personal loans do not attract prepayment penalties for individual borrowers. However, fixed-rate loans may still carry a charge of 1-3%."
+          }
+        }
+      ]
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'faq-jsonld';
+    script.innerHTML = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      const existingScript = document.getElementById('faq-jsonld');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, []);
+
   // 1. STANDARD EMI STATE
   const [loanAmount, setLoanAmount] = useState<number>(1000000);
   const [interestRate, setInterestRate] = useState<number>(8.5);
@@ -1210,6 +1271,46 @@ Built for Digital Heroes: https://digitalheroesco.com`;
             </div>
           </div>
         )}
+
+        {/* FAQ SECTION */}
+        <div className="card faq-card" style={{ gridColumn: 'span 2', marginTop: '24px' }}>
+          <div className="card-title">❓ Frequently Asked Questions (FAQ)</div>
+          <div className="faq-list">
+            {[
+              {
+                q: "How is loan EMI calculated?",
+                a: "Loan EMI is calculated using the formula: [P x R x (1+R)^N]/[(1+R)^N - 1], where P is the Principal loan amount, R is the monthly interest rate (annual rate divided by 12 * 100), and N is the loan tenure in months."
+              },
+              {
+                q: "Should I choose to reduce EMI or reduce tenure during prepayment?",
+                a: "Reducing loan tenure typically saves more money on interest over the long run compared to reducing the monthly EMI. Reducing EMI is better if you are facing cash flow constraints and want to lower your monthly obligation."
+              },
+              {
+                q: "What is the FOIR ratio and how does it affect eligibility?",
+                a: "FOIR (Fixed Obligation to Income Ratio) is a metric banks use to gauge your loan eligibility. It measures how much of your monthly net income goes toward paying existing debts. Typically, banks prefer a FOIR under 50%."
+              },
+              {
+                q: "Does prepayment attract additional penalties?",
+                a: "Under RBI guidelines, floating rate home loans, car loans, and personal loans do not attract prepayment penalties for individual borrowers. However, fixed-rate loans may still carry a charge of 1-3%."
+              }
+            ].map((item, index) => (
+              <div key={index} className={`faq-item ${faqActive === index ? 'active' : ''}`}>
+                <button
+                  type="button"
+                  className="faq-question"
+                  onClick={() => toggleFaq(index)}
+                  aria-expanded={faqActive === index}
+                >
+                  <span>{item.q}</span>
+                  <span className="faq-icon">{faqActive === index ? '−' : '+'}</span>
+                </button>
+                <div className="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </main>
 
       {/* FOOTER */}
