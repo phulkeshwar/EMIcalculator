@@ -549,7 +549,7 @@ Built for Digital Heroes: https://digitalheroesco.com`;
       {/* HEADER */}
       <header>
         <div className="logo">
-          <span className="logo-icon">📊</span>
+          <img src="/favicon-96x96.png" alt="Logo" style={{ width: '24px', height: '24px', borderRadius: '4px' }} />
           <span>EMI Calculator</span>
           <span className="logo-badge">PRO</span>
         </div>
