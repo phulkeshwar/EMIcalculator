@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# EMI & Loan Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-fidelity, client-side React TypeScript application for instant Equated Monthly Installment (EMI) and loan calculations. It features quick loan presets, dynamic SVG doughnut visualization, and a detailed, print-friendly amortization schedule.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1.  **Synchronized Controls**: Instantly calculate values on input updates using numeric fields and range sliders.
+2.  **Flexible Tenures**: Toggle inputs and calculations between **Months** and **Years** with automatic slider adjustments.
+3.  **Loan Type Presets**: Quick select buttons to instantly apply standard interest rates:
+    *   **Home Loan** (8.5%)
+    *   **Car Loan** (9.0%)
+    *   **Personal Loan** (14.0%)
+    *   **Education Loan** (7.0%)
+    *   **Custom** rate inputs.
+4.  **Math Accuracy**: Calculations utilize standard compound interest formulas:
+    $$r = \frac{\text{Annual Interest Rate}}{12 \times 100}$$
+    $$n = \text{Tenure in months}$$
+    $$\text{EMI} = \frac{P \times r \times (1+r)^n}{(1+r)^n - 1}$$
+5.  **Amortization Schedule**: Generate a detailed monthly payment breakdown showing Opening Balance, EMI, Principal Paid, Interest Paid, and Closing Balance. Includes float-rounding adjustments to ensure the final month closes at exactly `₹0.00`.
+6.  **Interactive SVG Doughnut Chart**: Visually representing the Principal vs Interest split. Built entirely with pure SVG elements (no bulky third-party chart libraries).
+7.  **Clipboard Sharing**: Quick copy button to copy a formatted calculation summary to your clipboard, accompanied by a dynamic sliding toast notification.
+8.  **Responsive Theme**: Dark themed user interface (surface `#162236`, background `#0F1B2D`, accent `#3B82F6`) that collapses into a single-column layout on mobile viewports (<768px).
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technical Details
 
-## Expanding the ESLint configuration
+*   **Framework**: [Vite](https://vite.dev/) + [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+*   **Styling**: Pure CSS (using CSS variables, CSS grid layouts, and custom range inputs)
+*   **Visual Assets**: Pure inline SVG definitions
+*   **Fonts**: `Space Grotesk` (headings, results, numbers) and `Inter` (body paragraphs) loaded via Google Fonts.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Local Setup
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+*   Node.js (v18+)
+*   npm or yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Installation
+1. Navigate to the repository folder:
+   ```bash
+   cd EMI
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the local development server:
+   ```bash
+   npm run dev
+   ```
+4. Build the application for production:
+   ```bash
+   npm run build
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Deployment to Vercel
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Since this is a client-side static web application, it can be deployed directly to Vercel:
+1. Log in to [Vercel](https://vercel.com).
+2. Click **Add New** → **Project**.
+3. Import your GitHub repository `EMIcalculator`.
+4. Leave build commands and directories as default (Vite preset is auto-detected).
+5. Click **Deploy**.
+
+---
+
+## Submission Details
+*   **Developer**: Phulkeshwar Mahto
+*   **Email**: [phulkeshwarmahto@gmail.com](mailto:phulkeshwarmahto@gmail.com)
+*   **Organization**: Built for Digital Heroes ([https://digitalheroesco.com](https://digitalheroesco.com))
