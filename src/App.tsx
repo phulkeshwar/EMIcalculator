@@ -432,6 +432,83 @@ Built for Digital Heroes: https://digitalheroesco.com`;
       .catch(() => showToast('Failed to copy.'));
   };
 
+  const downloadReport = () => {
+    let summary = '';
+    const unitText = tenureUnit === 'years' ? (tenure === 1 ? 'Year' : 'Years') : (tenure === 1 ? 'Month' : 'Months');
+
+    if (activeTab === 'standard') {
+      summary = `EMI Loan Calculation Summary:
+-----------------------------
+Loan Amount: ${formatCurrency(loanAmount)}
+Interest Rate: ${interestRate}% p.a.
+Tenure: ${tenure} ${unitText}
+-----------------------------
+Monthly EMI: ${formatCurrency(monthlyEmi)}
+Total Interest Payable: ${formatCurrency(totalInterest)}
+Total Amount Payable: ${formatCurrency(totalPayable)}
+-----------------------------
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
+Built for Digital Heroes: https://digitalheroesco.com`;
+    } else if (activeTab === 'prepayments') {
+      summary = `EMI Prepayment Savings Summary:
+-----------------------------
+Original Loan: ${formatCurrency(loanAmount)} @ ${interestRate}% for ${tenure} ${unitText}
+Prepayments Applied: ${prepayments.length}
+Revised Total Interest: ${formatCurrency(prepTotalInterest)}
+Revised Total Payable: ${formatCurrency(prepTotalPayable)}
+Interest Saved: ${formatCurrency(prepSavingsInterest)}
+Months Saved: ${prepSavingsTenure} months
+-----------------------------
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
+Built for Digital Heroes: https://digitalheroesco.com`;
+    } else if (activeTab === 'compare') {
+      const emiA = calculateEmiValue(compAmountA, compRateA, compTenureA);
+      const emiB = calculateEmiValue(compAmountB, compRateB, compTenureB);
+      const intA = emiA * compTenureA - compAmountA;
+      const intB = emiB * compTenureB - compAmountB;
+
+      summary = `Loan Comparison Report:
+-----------------------------
+Loan Plan A: ${formatCurrency(compAmountA)} @ ${compRateA}% for ${compTenureA} months
+- EMI: ${formatCurrency(emiA)}
+- Total Interest: ${formatCurrency(intA)}
+
+Loan Plan B: ${formatCurrency(compAmountB)} @ ${compRateB}% for ${compTenureB} months
+- EMI: ${formatCurrency(emiB)}
+- Total Interest: ${formatCurrency(intB)}
+
+Net Difference:
+- EMI: ${formatCurrency(Math.abs(emiA - emiB))}
+- Interest: ${formatCurrency(Math.abs(intA - intB))}
+-----------------------------
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
+Built for Digital Heroes: https://digitalheroesco.com`;
+    } else if (activeTab === 'eligibility') {
+      const { maxEmi, eligibleLoan } = calculateEligibility();
+      summary = `Loan Eligibility Assessment:
+-----------------------------
+Monthly Income: ${formatCurrency(monthlyIncome)}
+Existing EMIs: ${formatCurrency(existingEmi)}
+Eligible Loan Amount: ${formatCurrency(eligibleLoan)}
+Max Affordable EMI: ${formatCurrency(maxEmi)}
+Assumed Interest: ${eligibilityRate}% p.a.
+Assumed Tenure: ${eligibilityTenure} years
+-----------------------------
+Phulkeshwar Mahto | phulkeshwar.e@gmail.com
+Built for Digital Heroes: https://digitalheroesco.com`;
+    }
+
+    const blob = new Blob([summary], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `emi_${activeTab}_report.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const showToast = (message: string) => {
     setToastMessage(message);
     setTimeout(() => setToastMessage(null), 2500);
@@ -750,9 +827,12 @@ Built for Digital Heroes: https://digitalheroesco.com`;
                 </li>
               </ul>
 
-              <div className="actions-row">
+              <div className="actions-row" style={{ display: 'flex', gap: '8px' }}>
                 <button type="button" className="btn-sec" onClick={copyToClipboard}>
                   <span>⎘</span> Copy Summary
+                </button>
+                <button type="button" className="btn-primary" onClick={downloadReport} style={{ padding: '8px 16px', fontSize: '0.88rem' }}>
+                  <span>💾</span> Download Report
                 </button>
               </div>
             </div>
@@ -892,9 +972,12 @@ Built for Digital Heroes: https://digitalheroesco.com`;
                 </li>
               </ul>
 
-              <div className="actions-row">
+              <div className="actions-row" style={{ display: 'flex', gap: '8px' }}>
                 <button type="button" className="btn-sec" onClick={copyToClipboard}>
                   <span>⎘</span> Copy Prepayment Report
+                </button>
+                <button type="button" className="btn-primary" onClick={downloadReport} style={{ padding: '8px 16px', fontSize: '0.88rem' }}>
+                  <span>💾</span> Download Report
                 </button>
               </div>
             </div>
@@ -1048,9 +1131,12 @@ Built for Digital Heroes: https://digitalheroesco.com`;
                   </div>
                 );
               })()}
-              <div className="actions-row" style={{ marginTop: '20px' }}>
+              <div className="actions-row" style={{ marginTop: '20px', display: 'flex', gap: '8px' }}>
                 <button type="button" className="btn-sec" onClick={copyToClipboard} style={{ background: 'var(--surface3)' }}>
                   <span>⎘</span> Copy Comparison Details
+                </button>
+                <button type="button" className="btn-primary" onClick={downloadReport} style={{ padding: '8px 16px', fontSize: '0.88rem' }}>
+                  <span>💾</span> Download Report
                 </button>
               </div>
             </div>
@@ -1174,9 +1260,12 @@ Built for Digital Heroes: https://digitalheroesco.com`;
                 );
               })()}
 
-              <div className="actions-row" style={{ marginTop: '24px' }}>
+              <div className="actions-row" style={{ marginTop: '24px', display: 'flex', gap: '8px' }}>
                 <button type="button" className="btn-sec" onClick={copyToClipboard}>
                   <span>⎘</span> Copy Assessment Report
+                </button>
+                <button type="button" className="btn-primary" onClick={downloadReport} style={{ padding: '8px 16px', fontSize: '0.88rem' }}>
+                  <span>💾</span> Download Report
                 </button>
               </div>
             </div>
