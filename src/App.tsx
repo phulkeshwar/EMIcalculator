@@ -135,6 +135,13 @@ export default function App() {
   // Synchronize inputs & calculate
   useEffect(() => {
     calculateStandardEMI();
+    // Clean up prepayments and inputs that exceed the new max months
+    const maxMonths = Math.round(tenureUnit === 'years' ? tenure * 12 : tenure);
+    setPrepayments(prev => {
+      const filtered = prev.filter(p => p.month <= maxMonths);
+      return filtered.length !== prev.length ? filtered : prev;
+    });
+    setNewPrepMonth(prev => (prev > maxMonths ? maxMonths || 1 : prev));
   }, [loanAmount, interestRate, tenure, tenureUnit]);
 
   useEffect(() => {
@@ -163,7 +170,7 @@ export default function App() {
     const P = loanAmount;
     const R = interestRate;
     const r = R / 12 / 100;
-    const n = tenureUnit === 'years' ? tenure * 12 : tenure;
+    const n = Math.round(tenureUnit === 'years' ? tenure * 12 : tenure);
 
     if (P <= 0 || n <= 0) {
       setMonthlyEmi(0);
@@ -229,7 +236,7 @@ export default function App() {
     const P = loanAmount;
     const R = interestRate;
     const r = R / 12 / 100;
-    const n = tenureUnit === 'years' ? tenure * 12 : tenure;
+    const n = Math.round(tenureUnit === 'years' ? tenure * 12 : tenure);
 
     if (P <= 0 || n <= 0) {
       setPrepTotalInterest(0);
@@ -320,7 +327,7 @@ export default function App() {
   // Add a prepayment
   const addPrepayment = (e: React.FormEvent) => {
     e.preventDefault();
-    const maxMonths = tenureUnit === 'years' ? tenure * 12 : tenure;
+    const maxMonths = Math.round(tenureUnit === 'years' ? tenure * 12 : tenure);
     if (newPrepMonth < 1 || newPrepMonth > maxMonths) {
       showToast(`Month must be between 1 and ${maxMonths}`);
       return;
