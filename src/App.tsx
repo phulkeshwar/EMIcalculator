@@ -262,7 +262,7 @@ export default function App() {
 
       // Base principal to pay
       let basePrincipal = currentEmi - interestPaid;
-      if (basePrincipal > opening) {
+      if (monthIdx === n || basePrincipal > opening) {
         basePrincipal = opening;
       }
 
@@ -308,7 +308,7 @@ export default function App() {
     setPrepTotalPayable(accumulatedPayable);
 
     // Compute savings
-    const baseTotalInterest = totalInterest; // from standard EMI calculations
+    const baseTotalInterest = (baseEmiValue * n) - P;
     const savingsInt = Math.max(0, baseTotalInterest - accumulatedInterest);
     const monthsTaken = schedule.length;
     const savingsTen = Math.max(0, n - monthsTaken);
